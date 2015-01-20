@@ -1,0 +1,28 @@
+{
+  "name": "hacker-news-mobile",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "watchy -w . -i 'node_modules|assets' -- npm run build",
+    "build": "mkdir -p ./assets/build && node build.js"
+  },
+  "author": "James Friend <james@jsdf.co> (http://jsdf.co/)",
+  "license": "ISC",
+  "dependencies": {
+    "reactfire": "^0.4.0",
+    "browserify-assets": "^1.3.1",
+    "react": "^0.12.2",
+    "6to5ify": "^3.1.2",
+    "6to5": "^2.13.3",
+    "moment": "^2.9.0",
+    "react-ratchet": "^0.2.1"
+  },
+  "style": [
+    "app.css"
+  ],
+  "devDependencies": {
+    "watchy": "^0.5.8"
+  }
+}
