@@ -39,3 +39,4 @@ bower_components
 
 lib/
 assets/build
+config.json

@@ -5,6 +5,8 @@ var _ = require('underscore')
 
 var ClientApp = require('./components/app')
 
+var config = require('./config.json')
+
 var html = fs.readFileSync(__dirname+'/index.html', {encoding: 'utf8'})
 var renderPage = _.template(html, {variable: 'data'})
 
@@ -17,7 +19,7 @@ app.get('/', function (req, res) {
   res.send(renderPage({body}))
 })
 
-var server = app.listen(process.env.PORT || 3000, () => {
+var server = app.listen(process.env.PORT || config.port || 3000, () => {
   var host = server.address().address
   var port = server.address().port
   console.log('listening at http://%s:%s', host, port)
