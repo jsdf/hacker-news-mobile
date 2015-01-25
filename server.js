@@ -5,7 +5,8 @@ var _ = require('underscore')
 
 var ClientApp = require('./components/app')
 
-var config = require('./config.json')
+var config = {}
+try { config = require('./config.json') } catch (e) {}
 
 var html = fs.readFileSync(__dirname+'/index.html', {encoding: 'utf8'})
 var renderPage = _.template(html, {variable: 'data'})
