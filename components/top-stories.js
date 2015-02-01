@@ -1,14 +1,22 @@
 var React = require('react')
-var {NavBar, NavButton, TableView, TableViewCell, Title} = require('react-ratchet')
+var _ = require('underscore')
+var {TableView, TableViewCell} = require('react-ratchet')
+var {NavBar, NavButton, Title} = require('react-ratchet')
 
-var Story = require('./story')
+var TopStory = require('../stores/top-story')
+var StoryListItem = require('./story-list-item')
+var StoreWatchMixin = require('./store-watch-mixin')
 
 var TopStoriesView = React.createClass({
+  mixins: [StoreWatchMixin],
+  getStoreWatches() {
+    this.watchStore(TopStory)
+  },
   renderStory(story) {
-    return <Story key={story.id} story={story} />
+    return <StoryListItem key={story.id} story={story} onGotoComments={this.props.onGotoComments} />
   },
   renderStoriesTableView() {
-    var storyElements = this.props.topStories.map(this.renderStory)
+    var storyElements = TopStory.ordered().map(this.renderStory)
     return  <TableView children={storyElements} />
   },
   render() {
@@ -21,7 +29,7 @@ var TopStoriesView = React.createClass({
           {this.renderStoriesTableView()}
         </div>
       </div>
-    )
+    )   
   }
 })
 

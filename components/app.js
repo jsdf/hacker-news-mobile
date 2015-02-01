@@ -1,27 +1,15 @@
 var React = require('react')
-var _ = require('underscore')
-var {NavBar, NavButton, TableView, TableViewCell, Title} = require('react-ratchet')
-
-var TopStoryStore = require('../stores/top-story')
-var TopStoriesView = require('./top-stories')
+var {RouteHandler} = require('react-router')
+var {CSSTransitionGroup} = require('react/addons').addons
+var {State} = require('react-router')
 
 var App = React.createClass({
-  componentDidMount() {
-    TopStoryStore.on('change', this.handleUpdate)
-  },
-  componentWillUnmount() {
-    TopStoryStore.removeListener('change', this.handleUpdate)
-  },
-  handleUpdate() {
-    if (this.isMounted()) {
-      this.forceUpdate()
-    }
-  },
+  mixins: [
+    State,
+  ],
   render() {
     return (
-      <TopStoriesView
-        topStories={TopStoryStore.ordered()}
-      />
+      <RouteHandler ref="handler" key={this.getPathname()} />
     )
   }
 })

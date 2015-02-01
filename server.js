@@ -1,9 +1,11 @@
 var fs = require('fs')
 var express = require('express')
-var React = require('react')
 var _ = require('underscore')
+var React = require('react')
+var Router = require('react-router')
 
-var ClientApp = require('./components/app')
+var TopStory = require('./stores/top-story')
+var routes = require('./components/routes')
 
 var config = {}
 try { config = require('./config.json') } catch (e) {}
@@ -15,9 +17,16 @@ var app = express()
 
 app.use(express.static('assets'))
 
-app.get('/', function (req, res) {
-  var body = React.renderToStaticMarkup(<ClientApp />)
-  res.send(renderPage({body}))
+// hacky way of preventing bad asset requests from hitting main router
+app.get(/.*\.\w+$/, function(req, res) {
+  res.sendStatus(404)
+})
+
+app.use(function (req, res) {
+  Router.run(routes, req.url, (Handler) => {
+    var body = React.renderToString(<Handler />)
+    res.send(renderPage({body, topStories: TopStory.toJSON()}))
+  })
 })
 
 var server = app.listen(process.env.PORT || config.port || 3000, () => {

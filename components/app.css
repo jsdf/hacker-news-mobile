@@ -1,3 +1,171 @@
+body {
+  position: static;
+}
+
+.content {
+  position: static;
+}
+
 .text-muted {
-  color: #ddd;
+  color: #bbb;
+}
+
+.bar-nav {
+  position: relative; /* allow buttons to be positioned absolutely */
+  width: 100%;
+}
+
+.bar-nav ~ .content {
+  padding-top: 0;
+}
+
+.bar-nav > .btn-nav.btn-link.btn {
+  position: absolute;
+  float: none;
+}
+
+.bar-nav > .btn-nav.btn-link.btn.pull-left {
+  left: 5px;
+}
+.bar-nav > .btn-nav.btn-link.btn.pull-right {
+  right: 5px;
+}
+
+.title-wrapper {
+  display: -webkit-flex;
+  display: flex;
+}
+
+.title-wrapper:before, .title-wrapper:after {
+  display: block;
+  width: 80px;
+  content: ' ';
+}
+
+.title {
+  position: static;
+  display: block;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.story-list-item.table-view-cell {
+  cursor: pointer;
+  padding-right: 15px;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.story-list-item-description-column {
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.story-list-item-description {
+  display: block;
+  /*width: 100%;*/
+  margin: 0;
+  padding: 0;
+}
+
+.story-list-item-description h3 {
+  color: #111;
+}
+
+.story-list-item-comments-column {
+  height: 100%;
+  width: auto;
+  -webkit-align-self: flex-end;
+  align-self: flex-end;
+}
+
+.story-list-item-comments {
+  height: 38px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.story-list-item-description p {  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.story-list-item-description h3 {
+  font-size: 16px;
+  line-height: 1.2em;
+  font-weight: normal;
+  margin-bottom: 4px;
+}
+
+.story-list-item-description h3 a {
+  color: #111;
+}
+
+.story h3 {
+  font-weight: 300;
+}
+
+.story h4 {
+  font-weight: 400;
+}
+
+.story-title a {
+  color: #111;
+}
+
+.story-comments > .comment-list {
+  padding-right: 15px;
+  padding-bottom: 11px;
+}
+
+.comment {
+  padding-right: 0;
+  padding-bottom: 0;
+}
+
+.comment-list {
+  margin: 0;
+}
+
+.comment-title {
+  cursor: pointer;
+}
+
+.comment-text p {
+  color: #111;
+  line-height: 1.4em;
+  font-size: 16px;
+}
+
+.comment-title .disclosure {
+  cursor: pointer;
+  /*color: #111;*/
+  font-size: 14px;
+  margin-right: 2px;
+}
+
+
+.transition-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.transition-enter.transition-enter-active {
+  opacity: 1;
+}
+
+.transition-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.transition-leave.transition-leave-active {
+  opacity: 0.01;
 }
