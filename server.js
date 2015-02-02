@@ -10,8 +10,13 @@ var routes = require('./components/routes')
 var config = {}
 try { config = require('./config.json') } catch (e) {}
 
+var assetMap = null
+var assetBase = 'assets/'
+try { assetMap = require('./assets/build/assets.json') } catch (e) {}
+var assetPath = assetMap ? (p) => assetMap[assetBase+p].slice(assetBase.length) : (p) => p
+
 var html = fs.readFileSync(__dirname+'/index.html', {encoding: 'utf8'})
-var renderPage = _.template(html, {variable: 'data'})
+var renderPage = _.template(html, {variable: '$'})
 
 var app = express()
 
@@ -25,7 +30,7 @@ app.get(/.*\.\w+$/, function(req, res) {
 app.use(function (req, res) {
   Router.run(routes, req.url, (Handler) => {
     var body = React.renderToString(<Handler />)
-    res.send(renderPage({body, topStories: TopStory.toJSON()}))
+    res.send(renderPage({assetPath, body, topStories: TopStory.toJSON()}))
   })
 })
 

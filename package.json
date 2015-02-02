@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node boot.js",
     "watch": "watchy -w . -i 'node_modules|assets|cache.json' -- npm run build",
+    "digest": "./asset-map.js assets/build/bundle.*",
     "build": "browserify-assets -v -t 6to5ify --bundlename ./assets/build/bundle --cachefile ./assets/build/cache.json ./client.js"
   },
   "author": "James Friend <james@jsdf.co> (http://jsdf.co/)",
