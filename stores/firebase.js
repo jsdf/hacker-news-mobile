@@ -4,8 +4,11 @@ var {EventEmitter} = require('events')
 var getFirebase = require('../config/firebase')
 var bind = require('../util/bind')
 
+var BATCH_INTERVAL = 50
+
 class FirebaseStore extends EventEmitter {
   constructor(itemPath) {
+    this.emitChange = _.debounce(() => this.emit('change'), BATCH_INTERVAL)
     this.handleItemUpdate = bind(this.handleItemUpdate, this)
 
     this.itemPath = itemPath
@@ -20,7 +23,7 @@ class FirebaseStore extends EventEmitter {
     var item = dataSnapshot.val()
     if (!(item && item.id != null)) return 
     this.items[item.id] = item
-    this.emit('change')
+    this.emitChange()
   }
   addItem(itemId) {
     if (this.itemFirebases[itemId]) return
@@ -28,7 +31,7 @@ class FirebaseStore extends EventEmitter {
     var itemFirebase = getFirebase(this.itemPath, itemId)
     itemFirebase.on('value', this.handleItemUpdate)
     this.itemFirebases[itemId] = itemFirebase
-    this.emit('change')
+    this.emitChange()
   }
   removeItem(itemId) {
     if (!this.itemFirebases[itemId]) return
@@ -37,7 +40,7 @@ class FirebaseStore extends EventEmitter {
     itemFirebase.off('value', this.handleItemUpdate)
     delete this.itemFirebases[itemId]
     delete this.items[itemId]
-    this.emit('change')
+    this.emitChange()
   }
   get(id) {
     return this.items[id]

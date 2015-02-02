@@ -16,16 +16,22 @@ var StoryView = React.createClass({
     Navigation,
     State,
   ],
+  getInitialState() {
+    return {story: this.getStory()}
+  },
   componentDidMount(){
     this.loadStory()
   },
   getStoreWatches() {
-    this.watchStore(TopStory)
+    this.watchStore(TopStory, () => {
+      if (!this.isMounted()) return
+      this.setState({story: this.getStory()})
+    })
   },
   loadStory() {
     TopStory.addItem(this.getParams().id)
   },
-  getStory(){
+  getStory() {
     return TopStory.get(this.getParams().id)
   },
   getBackRoute() {
@@ -56,7 +62,7 @@ var StoryView = React.createClass({
     return <CommentList commentIds={story.kids||[]} />
   },
   render() {
-    var story = this.getStory()
+    var {story} = this.state
     
     var content
     if (story) {

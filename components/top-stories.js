@@ -9,14 +9,20 @@ var StoreWatchMixin = require('./store-watch-mixin')
 
 var TopStoriesView = React.createClass({
   mixins: [StoreWatchMixin],
+  getInitialState() {
+    return {topStories: TopStory.ordered()}
+  },
   getStoreWatches() {
-    this.watchStore(TopStory)
+    this.watchStore(TopStory, () => {
+      if (!this.isMounted()) return
+      this.setState({topStories: TopStory.ordered()})
+    })
   },
   renderStory(story) {
     return <StoryListItem key={story.id} story={story} onGotoComments={this.props.onGotoComments} />
   },
   renderStoriesTableView() {
-    var storyElements = TopStory.ordered().map(this.renderStory)
+    var storyElements = this.state.topStories.map(this.renderStory)
     return  <TableView children={storyElements} />
   },
   render() {

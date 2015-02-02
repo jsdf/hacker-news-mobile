@@ -32,7 +32,7 @@ class FirebaseOrderedCollectionStore extends FirebaseStore {
     }
 
     this.orderIds = currentOrderIds
-    this.emit('change')
+    this.emitChange()
   }
   getCurrentIds() {
     return this.orderIds
