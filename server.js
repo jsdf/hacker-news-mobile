@@ -13,7 +13,7 @@ try { config = require('./config.json') } catch (e) {}
 var assetMap = null
 var assetBase = 'assets/'
 try { assetMap = require('./assets/build/assets.json') } catch (e) {}
-var assetPath = assetMap ? (p) => '/'+(assetMap[assetBase+p].slice(assetBase.length)) : (p) => p
+var assetPath = assetMap ? (p) => '/'+(assetMap[assetBase+p].slice(assetBase.length)) : (p) => '/'+p
 
 var html = fs.readFileSync(__dirname+'/index.html', {encoding: 'utf8'})
 var renderPage = _.template(html, {variable: '$'})

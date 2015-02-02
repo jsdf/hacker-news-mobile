@@ -60,6 +60,10 @@ body {
   display: flex;
 }
 
+.story-list-item.table-view-cell:hover {
+  background: #eee;
+}
+
 .story-list-item-description-column {
   -webkit-flex: 1;
   flex: 1;
