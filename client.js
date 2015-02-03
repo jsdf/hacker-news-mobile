@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', (e) => {
     new FingerBlast(document.body) // simulate touch events from mouse
   }
 
-  TopStory.reset(HNMInitialData.topStories)
+  if (window.HNMInitialData) {
+    TopStory.reset(window.HNMInitialData.topStories)
+  }
   
   Router.run(routes, Router.HistoryLocation, (Handler) => {
     React.render(<Handler />, document.body)
