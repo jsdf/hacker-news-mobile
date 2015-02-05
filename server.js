@@ -20,7 +20,7 @@ var renderPage = _.template(html, {variable: '$'})
 
 var app = express()
 
-app.use(express.static('assets'))
+app.use(express.static('assets'), {maxAge: '1 month'})
 
 // hacky way of preventing bad asset requests from hitting main router
 app.get(/.*\.\w+$/, function(req, res) {
