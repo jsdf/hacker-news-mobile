@@ -86,7 +86,7 @@ var StoryView = React.createClass({
     }
 
     return (
-      <div>
+      <div className={this.props.className}>
         <NavBar>
           {this.renderBackButton()}
           <div className="title-wrapper"><Title>{story && story.title}</Title></div>

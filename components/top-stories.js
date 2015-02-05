@@ -27,7 +27,7 @@ var TopStoriesView = React.createClass({
   },
   render() {
     return (
-      <div>
+      <div className={this.props.className}>
         <NavBar>
           <Title>Hacker News Mobile - Top Stories</Title>
         </NavBar>

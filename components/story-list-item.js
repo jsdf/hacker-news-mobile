@@ -13,6 +13,7 @@ var StoryListItem = React.createClass({
   },
   handleGotoCommentsTouchTap(e) {
     e.stopPropagation()
+    e.preventDefault()
     this.transitionTo(...this.getGotoCommentsRoute())
   },
   render() {
