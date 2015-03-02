@@ -1,4 +1,4 @@
-require('6to5/polyfill')
+require('babel/polyfill')
 var React = require('react')
 var Router = require('react-router')
 var injectTapEventPlugin = require('react-tap-event-plugin')

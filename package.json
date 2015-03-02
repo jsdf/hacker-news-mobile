@@ -8,13 +8,13 @@
     "start": "node boot.js",
     "watch": "watchy -w . -i 'node_modules|assets|cache.json' -- npm run build",
     "digest": "./asset-map.js assets/build/bundle.*",
-    "build": "browserify-assets -v -t 6to5ify --bundlename ./assets/build/bundle --cachefile ./assets/build/cache.json ./client.js"
+    "build": "browserify-assets -v -t babelify --bundlename ./assets/build/bundle --cachefile ./assets/build/cache.json ./client.js"
   },
   "author": "James Friend <james@jsdf.co> (http://jsdf.co/)",
   "license": "ISC",
   "dependencies": {
-    "6to5": "^2.13.3",
-    "6to5ify": "^3.1.2",
+    "babel": "^4.6.3",
+    "babelify": "^5.0.3",
     "browserify-assets": "^1.5.1",
     "express": "^4.11.1",
     "fingerblast": "^1.1.1",
