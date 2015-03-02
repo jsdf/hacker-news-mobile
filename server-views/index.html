@@ -4,14 +4,13 @@
     <title>Hacker News Mobile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/img/apple-touch-icon.png">
-    <link rel="stylesheet" type="text/css" href="<%= $.assetPath('build/bundle.css') %>">
-    <script src="<%= $.assetPath('build/bundle.js') %>"></script>
+    <link rel="stylesheet" type="text/css" href="/build/bundle.css">
+    <script src="/build/bundle.js"></script>
     <script type="text/javascript">
-      window.HNMInitialData = {};
-      HNMInitialData.topStories = <%= JSON.stringify($.topStories) %>;
+      window.HackerNews = {{initialData}};
     </script>
   </head>
   <body>
-    <%= $.body %>
+    {{body}}
   </body>
 </html>

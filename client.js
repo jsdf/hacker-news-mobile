@@ -16,8 +16,8 @@ document.addEventListener('DOMContentLoaded', (e) => {
     new FingerBlast(document.body) // simulate touch events from mouse
   }
 
-  if (window.HNMInitialData) {
-    TopStory.reset(window.HNMInitialData.topStories)
+  if (window.HackerNews && window.HackerNews.topStories) {
+    TopStory.reset(window.HackerNews.topStories)
   }
   
   Router.run(routes, Router.HistoryLocation, (Handler) => {

@@ -6,19 +6,14 @@ var Router = require('react-router')
 
 var TopStory = require('./stores/top-story')
 var routes = require('./components/routes')
-
-var config = {}
-try { config = require('./config.json') } catch (e) {}
-
-var assetMap = null
-var assetBase = 'assets/'
-try { assetMap = require('./assets/build/assets.json') } catch (e) {}
-var assetPath = assetMap ? (p) => '/'+(assetMap[assetBase+p].slice(assetBase.length)) : (p) => '/'+p
-
-var html = fs.readFileSync(__dirname+'/index.html', {encoding: 'utf8'})
-var renderPage = _.template(html, {variable: '$'})
+var toJSONSafe = require('./util/to-json-safe')
 
 var app = express()
+
+var engines = require('consolidate')
+app.engine('html', engines.hogan)
+app.set('view engine', 'html')
+app.set('views', __dirname + '/server-views')
 
 app.use(express.static('assets', {maxAge: '1 month'}))
 
@@ -29,12 +24,13 @@ app.get(/.*\.\w+$/, function(req, res) {
 
 app.use(function (req, res) {
   Router.run(routes, req.url, (Handler) => {
+    var initialData = toJSONSafe({topStories: TopStory.toJSON()})
     var body = React.renderToString(<Handler />)
-    res.send(renderPage({assetPath, body, topStories: TopStory.toJSON()}))
+    res.render('index',({body, initialData}))
   })
 })
 
-var server = app.listen(process.env.PORT || config.port || 3000, () => {
+var server = app.listen(process.env.PORT || 3000, () => {
   var host = server.address().address
   var port = server.address().port
   console.log('listening at http://%s:%s', host, port)
