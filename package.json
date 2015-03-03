@@ -15,6 +15,7 @@
   "dependencies": {
     "babel": "^4.6.3",
     "babelify": "^5.0.3",
+    "bluebird": "^2.9.13",
     "browserify-assets": "^1.5.1",
     "consolidate": "^0.11.0",
     "express": "^4.11.1",
@@ -22,7 +23,9 @@
     "firebase": "^2.1.1",
     "hogan.js": "^3.0.2",
     "moment": "^2.9.0",
+    "node-fetch": "^1.0.4",
     "object.assign": "^1.1.1",
+    "promise-map": "^1.0.1",
     "react": "^0.12.2",
     "react-ratchet": "^0.3.0",
     "react-router": "git://github.com/jsdf/react-router#react-0.13",
@@ -30,10 +33,12 @@
     "reactfire": "^0.4.0",
     "through2": "^0.6.3",
     "underscore": "^1.7.0",
-    "url-join": "0.0.1"
+    "url-join": "0.0.1",
+    "whatwg-fetch": "^0.7.0"
   },
   "browser": {
-    "./config/environment.js": "./config/browser-environment.js"
+    "./config/environment.js": "./config/browser-environment.js",
+    "./util/fetch.js": "./util/browser-fetch.js"
   },
   "style": [
     "assets/vendor/ratchet/css/ratchet.css",

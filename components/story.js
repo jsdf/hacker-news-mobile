@@ -4,35 +4,36 @@ var {NavBar, NavButton, Title} = require('react-ratchet')
 var moment = require('moment')
 var {Navigation, State} = require('react-router')
 
-var TopStory = require('../stores/top-story')
+var Story = require('../stores/story')
 var StoreWatchMixin = require('./store-watch-mixin')
 var CommentList = require('./comment-list')
 var isDesktop = require('../util/is-desktop')
 var navigateTo = require('../util/navigate-to')
 
 var StoryView = React.createClass({
+  statics: {
+    getStoresInitialData(params) {
+      return {
+        Story: Story.fetch(params.id).then(() => [Story.get(params.id)]),
+      }
+    },
+  },
   mixins: [
     StoreWatchMixin,
     Navigation,
     State,
   ],
-  getInitialState() {
-    return {story: this.getStory()}
-  },
-  componentDidMount(){
-    this.loadStory()
+  componentDidMount() {
+    if (!this.getStory()) this.loadStory()
   },
   getStoreWatches() {
-    this.watchStore(TopStory, () => {
-      if (!this.isMounted()) return
-      this.setState({story: this.getStory()})
-    })
+    this.watchStore(Story)
   },
   loadStory() {
-    TopStory.addItem(this.getParams().id)
+    return Story.fetch(this.getParams().id)
   },
   getStory() {
-    return TopStory.get(this.getParams().id)
+    return Story.get(this.getParams().id)
   },
   getBackRoute() {
     return ['/']
@@ -59,10 +60,10 @@ var StoryView = React.createClass({
     )
   },
   renderComments(story) {
-    return <CommentList commentIds={story.kids||[]} />
+    return <CommentList comments={story.childItems} />
   },
   render() {
-    var {story} = this.state
+    var story = this.getStory()
     
     var content
     if (story) {

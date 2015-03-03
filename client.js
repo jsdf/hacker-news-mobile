@@ -4,9 +4,12 @@ var Router = require('react-router')
 var injectTapEventPlugin = require('react-tap-event-plugin')
 var FingerBlast = require('fingerblast/dist/fingerblast.umd')
 
-var routes = require('./components/routes')
-var TopStory = require('./stores/top-story')
 var isDesktop = require('./util/is-desktop')
+var routes = require('./components/routes')
+var stores = {
+  TopStory: require('./stores/top-story'),
+  Story: require('./stores/story'),
+}
 
 React.initializeTouchEvents(true)
 injectTapEventPlugin()
@@ -16,10 +19,18 @@ document.addEventListener('DOMContentLoaded', (e) => {
     new FingerBlast(document.body) // simulate touch events from mouse
   }
 
-  if (window.HackerNews && window.HackerNews.topStories) {
-    TopStory.reset(window.HackerNews.topStories)
+  // bootstrap stores with initial data
+  if (window.HackerNewsInitialData) {
+    var initialData = window.HackerNewsInitialData
+    Object.keys(initialData).forEach((storeName) => {
+      if (stores[storeName]) {
+        stores[storeName].reset(initialData[storeName])
+      } else {
+        console.warn('unknown store '+storeName)
+      }
+    })
   }
-  
+
   Router.run(routes, Router.HistoryLocation, (Handler) => {
     React.render(<Handler />, document.body)
   })

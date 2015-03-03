@@ -2,20 +2,12 @@ var React = require('react')
 var {TableView, TableViewCell, Button, Badge, Icon} = require('react-ratchet')
 var {CSSTransitionGroup} = require('react/addons').addons
 var moment = require('moment')
-var FirebaseMixin = require('reactfire')
-
-var getFirebase = require('../config/firebase')
 
 var Comment = React.createClass({
-  mixins: [FirebaseMixin],
   getInitialState() {
     return {
-      comment: null,
       open: true,
     }
-  },
-  componentDidMount() {
-    this.bindAsObject(getFirebase('item', this.props.commentId), "comment");
   },
   handleDisclosureClick(e) {
     this.setState({open: !this.state.open})
@@ -25,12 +17,13 @@ var Comment = React.createClass({
     return (
       <div>
         <div className="comment-text" dangerouslySetInnerHTML={{__html}} />
-        <CommentList commentIds={comment.kids||[]} />
+        <CommentList comments={comment.childItems} />
       </div>
     )
   },
   render() {
-    var {comment, open} = this.state
+    var {open} = this.state
+    var {comment} = this.props
     var commentElement
 
     if (comment) {
@@ -60,13 +53,13 @@ var Comment = React.createClass({
 })
 
 var CommentList = React.createClass({
-  renderComment(id) {
-    return <Comment key={id} commentId={id} />
+  renderComment(comment) {
+    return <Comment key={comment.id} comment={comment} />
   },
   render() {
     return (
       <TableView className="comment-list">
-        {this.props.commentIds.map(this.renderComment)}
+        {(this.props.comments||[]).map(this.renderComment)}
       </TableView>
     )
 
