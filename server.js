@@ -26,7 +26,7 @@ app.use(function (req, res) {
   Router.run(routes, req.url, (Handler) => {
     var initialData = toJSONSafe({topStories: TopStory.toJSON()})
     var body = React.renderToString(<Handler />)
-    res.render('index',({body, initialData}))
+    res.render('index', {body, initialData})
   })
 })
 
