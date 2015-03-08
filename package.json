@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node boot.js",
+    "start": "node server-boot.js",
     "watch": "watchy -w . -i 'node_modules|assets|cache.json' -- npm run build",
-    "digest": "./asset-map.js assets/build/bundle.*",
+    "digest": "./scripts/asset-map.js assets/build/bundle.*",
     "build": "browserify-assets -v -t babelify --bundlename ./assets/build/bundle --cachefile ./assets/build/cache.json ./client.js"
   },
   "author": "James Friend <james@jsdf.co> (http://jsdf.co/)",
@@ -46,7 +46,7 @@
     "components/app.css"
   ],
   "transforms": [
-    "./css-path-transform"
+    "./server/util/css-path-transform"
   ],
   "devDependencies": {
     "watchy": "^0.5.8"

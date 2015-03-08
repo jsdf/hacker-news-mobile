@@ -5,14 +5,14 @@ var Router = require('react-router')
 var routes = require('./components/routes')
 var getRoutesInitialData = require('./components/get-routes-initial-data')
 var toJSONSafe = require('./util/to-json-safe')
-var assetPath = require('./util/asset-path')
+var assetPath = require('./server/util/asset-path')
 
 // express boilerplate
 var app = express()
 var engines = require('consolidate')
 app.engine('html', engines.hogan)
 app.set('view engine', 'html')
-app.set('views', __dirname + '/server-views')
+app.set('views', __dirname + '/server/views')
 app.use(express.static('assets'))
 
 // hacky way of preventing bad asset requests from hitting main router
