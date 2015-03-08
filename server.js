@@ -6,6 +6,7 @@ var routes = require('./components/routes')
 var getRoutesInitialData = require('./components/get-routes-initial-data')
 var toJSONSafe = require('./util/to-json-safe')
 var assetPath = require('./server/util/asset-path')
+var config = require('./config.json')
 
 // express boilerplate
 var app = express()
@@ -31,4 +32,5 @@ app.use((req, res) => {
   })
 })
 
-app.listen(3000, () => console.log('it lives'))
+const LISTEN_PORT = process.env.PORT || config.port || 3000
+app.listen(LISTEN_PORT, () => console.log('it lives'))
