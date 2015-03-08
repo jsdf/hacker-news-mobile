@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server-boot.js",
+    "start": "node boot.js",
     "watch": "watchy -w . -i 'node_modules|assets|cache.json' -- npm run build",
     "digest": "./scripts/asset-map.js assets/build/bundle.*",
     "build": "browserify-assets -v -t babelify --bundlename ./assets/build/bundle --cachefile ./assets/build/cache.json ./client.js"
