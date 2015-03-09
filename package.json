@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node boot.js",
     "watch": "watchy -w . -i 'node_modules|assets|cache.json' -- npm run build",
+    "uglify": "uglifyjs assets/build/bundle.js --compress > assets/build/bundle.min.js; mv assets/build/bundle.min.js assets/build/bundle.js",
     "digest": "./scripts/asset-map.js assets/build/bundle.*",
     "build": "browserify-assets -v -t babelify --bundlename ./assets/build/bundle --cachefile ./assets/build/cache.json ./client.js"
   },
@@ -16,7 +17,7 @@
     "babel": "^4.6.3",
     "babelify": "^5.0.3",
     "bluebird": "^2.9.13",
-    "browserify-assets": "^1.5.1",
+    "browserify-assets": "~1.5.1",
     "consolidate": "^0.11.0",
     "express": "^4.11.1",
     "fingerblast": "^1.1.1",
@@ -49,6 +50,7 @@
     "./server/util/css-path-transform"
   ],
   "devDependencies": {
+    "uglify-js": "~2.4.16",
     "watchy": "^0.5.8"
   }
 }

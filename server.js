@@ -23,6 +23,7 @@ app.use((req, res) => {
   Router.run(routes, req.url, (Handler, routerState) => {
     getRoutesInitialData(routerState)
       .then((routesInitialData) => {
+	res.set('Cache-Control', 'public, max-age=10000')
         res.render('page', {
           initialDataJSON: toJSONSafe(routesInitialData),
           body: React.renderToString(<Handler />),
