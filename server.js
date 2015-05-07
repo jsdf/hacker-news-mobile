@@ -3,7 +3,7 @@ var React = require('react')
 var Router = require('react-router')
 
 var routes = require('./components/routes')
-var getRoutesInitialData = require('./components/get-routes-initial-data')
+var getRoutesInitialData = require('./util/get-routes-initial-data')
 var toJSONSafe = require('./util/to-json-safe')
 var assetPath = require('./server/util/asset-path')
 var config = require('./config.json')
