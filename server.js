@@ -14,15 +14,16 @@ var engines = require('consolidate')
 app.engine('html', engines.hogan)
 app.set('view engine', 'html')
 app.set('views', __dirname + '/server/views')
-app.use(express.static('assets'))
+app.use(express.static('assets', {maxAge: '1 month'}))
 
-// hacky way of preventing bad asset requests from hitting main router
+// hacky way of preventing bad asset requests from hitting react router
 app.get(/.*\.\w+$/, (req, res) => res.sendStatus(404))
 
 app.use((req, res) => {
   Router.run(routes, req.url, (Handler, routerState) => {
     getRoutesInitialData(routerState)
       .then((routesInitialData) => {
+        res.set('Cache-Control', 'public, max-age=10000')
         res.render('page', {
           initialDataJSON: toJSONSafe(routesInitialData),
           body: React.renderToString(<Handler />),

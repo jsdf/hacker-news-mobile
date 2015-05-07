@@ -8,6 +8,7 @@
     "start": "node boot.js",
     "watch": "watchy -w . -i 'node_modules|assets|cache.json' -- npm run build",
     "digest": "./scripts/asset-map.js assets/build/bundle.*",
+    "uglify": "uglifyjs assets/build/bundle.js --compress > assets/build/bundle.js.tmp; mv assets/build/bundle.js.tmp assets/build/bundle.js",
     "build": "browserify-assets -v -t babelify --bundlename ./assets/build/bundle --cachefile ./assets/build/cache.json ./client.js"
   },
   "author": "James Friend <james@jsdf.co> (http://jsdf.co/)",
