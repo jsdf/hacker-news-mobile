@@ -6,6 +6,7 @@ var routes = require('./components/routes')
 var getRoutesInitialData = require('./util/get-routes-initial-data')
 var toJSONSafe = require('./util/to-json-safe')
 var assetPath = require('./server/util/asset-path')
+var tags = require('./server/util/tags')
 var config = require('./config.json')
 
 // express boilerplate
@@ -28,6 +29,7 @@ app.use((req, res) => {
           initialDataJSON: toJSONSafe(routesInitialData),
           body: React.renderToString(<Handler />),
           assetPath,
+          tags,
         })
       })
   })

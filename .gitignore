@@ -38,6 +38,7 @@ node_modules
 bower_components
 
 lib/
+server/views/tags.html
 assets/build
 config.json
 processes.json
