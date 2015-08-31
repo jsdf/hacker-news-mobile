@@ -2,12 +2,14 @@ var _ = require('underscore')
 var {EventEmitter} = require('events')
 var urlJoin = require('url-join')
 var fetch = require('../util/fetch')
+var logErr = require('../util/logErr')
 
 class CollectionStore extends EventEmitter {
   static url() { throw new Error('unimplemented method') }
   static fetch(id) {
     return fetch(urlJoin(this.url(), id))
       .then(response => response.json())
+      .catch(logErr)
   }
   constructor() {
     this.items = {}

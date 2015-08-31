@@ -3,6 +3,7 @@ var urlJoin = require('url-join')
 var CollectionStore = require('./collection')
 var fetch = require('../util/fetch')
 var config = require('../config.json')
+var logErr = require('../util/logErr')
 
 const API_PATH = urlJoin(config.apiHost, '/')
 
@@ -11,6 +12,7 @@ class TopStoryStore extends CollectionStore {
   static fetch() {
     return fetch(this.url())
       .then(response => response.json())
+      .catch(logErr)
   }
   fetch() {
     return this.constructor.fetch()

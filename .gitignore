@@ -42,3 +42,5 @@ server/views/tags.html
 assets/build
 config.json
 processes.json
+
+*.heapsnapshot
