@@ -44,3 +44,4 @@ config.json
 processes.json
 
 *.heapsnapshot
+*.tgz
