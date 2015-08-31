@@ -1,3 +1,5 @@
+require('./server/memleak/memleak')
+
 var express = require('express')
 var React = require('react')
 var Router = require('react-router')
