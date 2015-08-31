@@ -12,6 +12,7 @@ var config = require('./config.json')
 
 // express boilerplate
 var app = express()
+app.set('trust proxy', 'loopback')
 var engines = require('consolidate')
 app.engine('html', engines.hogan)
 app.set('view engine', 'html')
