@@ -18,10 +18,11 @@ app.engine('html', engines.hogan)
 app.set('view engine', 'html')
 app.set('views', __dirname + '/server/views')
 app.use(morgan('combined'))
-app.use(express.static('assets', {maxAge: '1 month'}))
+if (!config.assetHost) app.use(express.static('assets', {maxAge: '1 month'}))
 
 const renderRoute = (req, res) => {
   Router.run(routes, req.url, (Handler, routerState) => {
+    var assetPathAbsolute = (asset) => (config.assetHost ? `${req.protocol}://${config.assetHost}` : '') + assetPath(asset)
 
     getRoutesInitialData(routerState)
       .then((routesInitialData) => {
@@ -29,7 +30,7 @@ const renderRoute = (req, res) => {
         res.render('page', {
           initialDataJSON: toJSONSafe(routesInitialData),
           body: React.renderToString(<Handler />),
-          assetPath,
+          assetPath: assetPathAbsolute,
           tags,
         })
       })
