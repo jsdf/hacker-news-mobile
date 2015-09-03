@@ -1,5 +1,3 @@
-require('./server/memleak/memleak')
-
 var express = require('express')
 var React = require('react')
 var Router = require('react-router')
@@ -14,23 +12,28 @@ var config = require('./config.json')
 
 // express boilerplate
 var app = express()
+app.set('trust proxy', 'loopback')
 var engines = require('consolidate')
 app.engine('html', engines.hogan)
 app.set('view engine', 'html')
 app.set('views', __dirname + '/server/views')
 app.use(morgan('combined'))
-app.use(express.static('assets', {maxAge: '1 month'}))
+if (!config.assetHost) app.use(express.static('assets', {maxAge: '1 month'}))
 
 const renderRoute = (req, res) => {
   Router.run(routes, req.url, (Handler, routerState) => {
+    var assetPathAbsolute = (asset) =>
+      (config.assetHost ? `${req.protocol}://${config.assetHost}` : '') + assetPath(asset)
+    var apiHost = `${req.protocol}://${config.apiHost}`
 
     getRoutesInitialData(routerState)
       .then((routesInitialData) => {
         res.set('Cache-Control', 'public, max-age=10000')
         res.render('page', {
           initialDataJSON: toJSONSafe(routesInitialData),
+          configJSON: toJSONSafe({apiHost}),
           body: React.renderToString(<Handler />),
-          assetPath,
+          assetPath: assetPathAbsolute,
           tags,
         })
       })
