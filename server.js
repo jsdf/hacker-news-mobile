@@ -27,13 +27,13 @@ const renderRoute = (req, res) => {
     var apiHost = `${req.protocol}://${config.apiHost}`
 
     getRoutesInitialData(routerState)
-      .then((routesInitialData) => {
+      .then(routesInitialData => {
         res.set('Cache-Control', 'public, max-age=10000')
         res.render('page', {
           initialDataJSON: toJSONSafe(routesInitialData),
           configJSON: toJSONSafe({apiHost}),
           body: React.renderToString(<Handler />),
-          assetPath: assetPathAbsolute,
+          assetPath: () => assetPathAbsolute,
           tags,
         })
       })

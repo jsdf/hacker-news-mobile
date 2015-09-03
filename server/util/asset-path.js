@@ -10,7 +10,7 @@ try {
     return map
   }, {})
 
-  module.exports = () => (text) => '/'+assetMap[text]
+  module.exports = (asset) => '/'+assetMap[asset]
 } catch (e) {
-  module.exports = () => (text) => '/'+text
+  module.exports = (asset) => '/'+asset
 }
