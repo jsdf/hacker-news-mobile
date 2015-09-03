@@ -2,7 +2,7 @@ var _ = require('underscore')
 var urlJoin = require('url-join')
 var CollectionStore = require('./collection')
 var fetch = require('../util/fetch')
-var config = require('../config.json')
+var config = require('../util/config')
 var logErr = require('../util/logErr')
 
 const API_PATH = urlJoin(config.apiHost, '/')

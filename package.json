@@ -40,6 +40,7 @@
     "whatwg-fetch": "^0.7.0"
   },
   "browser": {
+    "./util/config.js": "./util/browser-config.js",
     "./config/environment.js": "./config/browser-environment.js",
     "./util/fetch.js": "./util/browser-fetch.js"
   },
